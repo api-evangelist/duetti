@@ -1,0 +1,92 @@
+generated: '2026-08-04'
+method: probed
+source: live HTTP probes of every Duetti host discovered via DNS and certificate transparency
+result: none
+summary: >-
+  No /.well-known/ document, no machine-readable API contract, and no A2A agent card
+  was found on any Duetti host. Duetti publishes no public developer API. This file
+  records the negative result so a later round does not re-probe blind — and, more
+  importantly, records the false-positive trap on duo.duetti.co (see spa_catch_all
+  below), which answers HTTP 200 for every path including /openapi.json,
+  /.well-known/agent-card.json and /llms.txt.
+
+hosts_probed:
+- host: duetti.co
+  kind: marketing (apex)
+- host: www.duetti.co
+  kind: marketing
+- host: duo.duetti.co
+  kind: DUO artist onboarding app (authenticated)
+- host: statements.duetti.co
+  kind: Artist File Vault / royalty statements (authenticated)
+- host: sync.duetti.co
+  kind: sync licensing portal (authenticated)
+- host: report.duetti.co
+  kind: Music Economics Report microsite (Webflow CDN)
+
+documents:
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+- path: /.well-known/agent-card.json
+  status: 404
+- path: /.well-known/agent.json
+  status: 404
+
+contract_discovery:
+  openapi:
+    result: none
+    probed: [/openapi.json, /openapi.yaml, /swagger.json, /api-docs, /docs, /redoc]
+    note: probed against every host above, not only the marketing host
+  graphql:
+    result: none
+    note: /graphql returns the SPA shell on duo.duetti.co and 404 elsewhere; no introspectable endpoint
+  mcp:
+    result: none
+    note: no hosted MCP server published or referenced in any public Duetti material
+  a2a:
+    result: none
+    note: >-
+      Both /.well-known/agent-card.json and the legacy /.well-known/agent.json were
+      probed on every host. The only 200s came from the duo.duetti.co SPA catch-all
+      and returned text/html, so they were REJECTED. No agent card artifact was
+      written — an agent card must be served by the provider and is never authored
+      on their behalf.
+  llms_txt:
+    result: none
+    note: /llms.txt 404s on the marketing hosts and returns the SPA shell on duo.duetti.co
+
+spa_catch_all:
+  host: duo.duetti.co
+  behavior: >-
+    Next.js application that answers every unmatched path with HTTP 307 to the login
+    route, which then returns HTTP 200 with content-type text/html. A status-code-only
+    probe reports 200 for ALL of /openapi.json, /swagger.json, /llms.txt,
+    /.well-known/agent-card.json, /.well-known/agent.json, /.well-known/security.txt
+    and /.well-known/openid-configuration.
+  verification: >-
+    A control request to /this-path-does-not-exist-abc123 returned the identical
+    HTML body, confirming a catch-all rather than real documents.
+  rule: reject any 200 from this host whose content-type is not the expected media type
+
+github_org:
+  result: none
+  note: >-
+    No Duetti GitHub organization found. github.com/duettimusic exists but has 0 public
+    repos and no company metadata; github.com/duetti is an unrelated personal account.
+
+packages:
+  result: none
+  registries_probed: [npm, PyPI]
+  note: no first-party Duetti client library published
+
+x-evidence:
+  fetched: '2026-08-04'
+  method: curl status + content-type inspection; dig for DNS; crt.sh for certificate transparency

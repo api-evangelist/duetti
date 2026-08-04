@@ -1,17 +1,38 @@
 aid: duetti
 name: Duetti
-description: 'Duetti is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Duetti is a New York-headquartered music finance and catalog services
+  company founded in 2022 by Lior Tibon and Christopher Nolte that buys music rights
+  directly from independent artists, songwriters and creators. Artists earning at least
+  $2,000 a year from tracks at least six months old can sell masters, publishing shares
+  or a percentage of their royalties for an upfront cash payment — no debt, interest
+  or recoupment — while keeping whatever they do not sell. Alongside the catalog purchases
+  Duetti provides distribution, royalty tracking and claiming, playlisting across a
+  network of owned Spotify playlists, sync placement, paid advertising, influencer
+  and UGC campaigns, and a commissioned remix program. The company has raised more
+  than $435 million, works with 1,100+ music creators, and publishes the Music Economics
+  Report and the Billboard Music Finance Index. Duetti operates artist-facing web applications
+  (DUO onboarding, statements vault, sync portal) but publishes no public developer
+  API, SDK, or machine-readable API contract as of this profile.'
 url: https://raw.githubusercontent.com/api-evangelist/duetti/refs/heads/main/apis.yml
+image: https://cdn.prod.website-files.com/67af989e5cd8af2a77713c77/67b3708eccafbbb17baea776_Logo%20Lockup%20with%20Symbol%20-%20Black%201.svg
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment-pass-no-public-api
 specificationVersion: '0.20'
 created: '2026-08-04'
 modified: '2026-08-04'
 tags:
 - Company
+- Music
+- Music Rights
+- Royalties
+- Catalog Acquisition
+- Music Finance
+- Publishing
+- Distribution
+- Creator Economy
+- Entertainment
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -20,4 +41,43 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://www.hiive.com/securities/duetti-stock
+  url: https://www.duetti.co/
+- type: About
+  url: https://www.duetti.co/about-us
+- type: Services
+  url: https://www.duetti.co/what-we-do
+- type: Login
+  url: https://duo.duetti.co/login
+- type: ContactUs
+  url: https://www.duetti.co/request-a-meeting
+- type: TermsOfService
+  url: https://www.duetti.co/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.duetti.co/privacy-policy
+- type: Careers
+  url: https://jobs.lever.co/duetti
+- type: Newsroom
+  url: https://www.duetti.co/about-us/#newsroom
+- type: Research
+  name: 2025 Music Economics Report
+  url: https://www.duetti.co/2025-music-economics-report
+- type: Research
+  name: Billboard Music Finance Index
+  url: https://www.duetti.co/music-finance-index
+- type: LinkedIn
+  url: https://www.linkedin.com/company/duetti
+- type: Instagram
+  url: https://www.instagram.com/duetti.co/
+- type: LLMsTxt
+  url: llms/duetti-llms.txt
+- type: DomainSecurity
+  url: security/duetti-domain-security.yml
+- type: ContractDiscovery
+  url: well-known/duetti-well-known.yml
+x-secondary-market:
+  hiive: https://www.hiive.com/securities/duetti-stock
+x-enrichment:
+  date: '2026-08-04'
+  status: minimal
+  artifacts_added: 3
+  pass: local-v1
